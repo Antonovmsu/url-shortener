@@ -16,6 +16,7 @@ func saveURL(w http.ResponseWriter, r *http.Request) {
 func redirectURL(w http.ResponseWriter, r *http.Request) {
 	if r.PathValue("shortURL") == "google" {
 		http.Redirect(w, r, "https://google.com", http.StatusTemporaryRedirect)
+		return
 	}
 	w.WriteHeader(http.StatusNotFound)
 	w.Write([]byte("Custom 404: The resource you are looking for does not exist."))
