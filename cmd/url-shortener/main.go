@@ -6,7 +6,7 @@ import (
 )
 
 func home(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello, World!"))
+	w.Write([]byte("Hello, User!"))
 }
 
 func saveURL(w http.ResponseWriter, r *http.Request) {
@@ -14,6 +14,7 @@ func saveURL(w http.ResponseWriter, r *http.Request) {
 }
 
 func redirectURL(w http.ResponseWriter, r *http.Request) {
+	// TODO: Add URL validation
 	if r.PathValue("shortURL") == "google" {
 		http.Redirect(w, r, "https://google.com", http.StatusTemporaryRedirect)
 		return
@@ -24,9 +25,9 @@ func redirectURL(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/{$}", home)
-	mux.HandleFunc("/save", saveURL)
-	mux.HandleFunc("/{shortURL}", redirectURL)
+	mux.HandleFunc("GET /{$}", home)
+	mux.HandleFunc("GET /save", saveURL)
+	mux.HandleFunc("GET /{shortURL}", redirectURL)
 
 	log.Print("Starting server on :8080")
 
