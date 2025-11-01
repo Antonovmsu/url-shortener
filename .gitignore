@@ -28,6 +28,7 @@ vendor/
 .idea/
 *.swp
 *.swo
+*.code-workspace
 
 # Операционные системные файлы
 .DS_Store
