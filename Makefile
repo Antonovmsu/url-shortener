@@ -4,11 +4,11 @@ APP_NAME=url-shortener
 
 # Запуск приложения
 run:
-	go run cmd/$(APP_NAME)/main.go
+	go run ./cmd/$(APP_NAME)
 
 # Сборка приложения
 build:
-	go build -o bin/$(APP_NAME) cmd/$(APP_NAME)/main.go
+	go build -o ./bin/$(APP_NAME) ./cmd/$(APP_NAME)
 
 # Запуск тестов
 test:
