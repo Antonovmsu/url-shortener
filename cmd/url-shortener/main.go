@@ -13,6 +13,11 @@ func saveURL(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Display form for saving URL"))
 }
 
+func saveURLPost(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusCreated)
+	w.Write([]byte("Save new URL"))
+}
+
 func redirectURL(w http.ResponseWriter, r *http.Request) {
 	// TODO: Add URL validation
 	if r.PathValue("shortURL") == "google" {
@@ -26,8 +31,9 @@ func redirectURL(w http.ResponseWriter, r *http.Request) {
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /{$}", home)
-	mux.HandleFunc("GET /save", saveURL)
 	mux.HandleFunc("GET /{shortURL}", redirectURL)
+	mux.HandleFunc("GET /saveURL", saveURL)
+	mux.HandleFunc("POST /saveURL", saveURLPost)
 
 	log.Print("Starting server on :8080")
 
