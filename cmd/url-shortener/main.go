@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+	// TODO: Read config path from env
 	cfg, err := config.MustLoad("./configs/local.yaml")
 	if err != nil {
 		log.Fatal(err)
