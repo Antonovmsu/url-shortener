@@ -26,15 +26,9 @@ func main() {
 		logger.Error(err.Error())
 	}
 
-	mux := http.NewServeMux()
-	mux.HandleFunc("GET /{$}", app.home)
-	mux.HandleFunc("GET /{shortURL}", app.redirectURL)
-	mux.HandleFunc("GET /saveURL", app.saveURL)
-	mux.HandleFunc("POST /saveURL", app.saveURLPost)
-
 	logger.Info("Starting server", slog.String("address", cfg.Address))
 
-	err = http.ListenAndServe(cfg.Address, mux)
+	err = http.ListenAndServe(cfg.Address, app.routes())
 	logger.Error(err.Error())
 	os.Exit(1)
 }
