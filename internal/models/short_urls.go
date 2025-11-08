@@ -49,11 +49,9 @@ func (m *ShortURLModel) Get(shortCode string) (ShortURL, error) {
 	stmt := `SELECT id, original_url, short_code, created, expires FROM urls 
 	WHERE short_code = ?`
 
-	row := m.DB.QueryRow(stmt, shortCode)
-
 	var u ShortURL
 
-	err := row.Scan(&u.ID, &u.OriginalURL, &u.ShortCode, &u.Created, &u.Expires)
+	err := m.DB.QueryRow(stmt, shortCode).Scan(&u.ID, &u.OriginalURL, &u.ShortCode, &u.Created, &u.Expires)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return ShortURL{}, ErrNoRecord
