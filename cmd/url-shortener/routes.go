@@ -10,5 +10,5 @@ func (app *application) routes() http.Handler {
 	mux.HandleFunc("GET /saveURL", app.saveURL)
 	mux.HandleFunc("POST /saveURL", app.saveURLPost)
 
-	return commonHeaders(mux)
+	return app.logRequest(commonHeaders(mux))
 }
