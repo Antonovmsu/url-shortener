@@ -21,6 +21,7 @@ type application struct {
 func main() {
 	// TODO: Use environment variables
 	config_path := flag.String("cfg", "./configs/local.yaml", "Path to config file")
+	// TODO: Change pass due to it been committed
 	dsn := flag.String("dsn", "web:pass@/urlshortener?parseTime=True", "MySQL DSN")
 	flag.Parse()
 
