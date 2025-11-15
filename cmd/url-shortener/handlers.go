@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"strconv"
 
 	"url-shortener/internal/models"
@@ -28,6 +29,21 @@ func (app *application) saveURLPost(w http.ResponseWriter, r *http.Request) {
 	expires, err := strconv.Atoi(r.PostForm.Get("expires"))
 	if err != nil {
 		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	fieldErrors := make(map[string]string)
+
+	if _, err := url.ParseRequestURI(original_url); err != nil {
+		fieldErrors["original_url"] = "URL is not valid"
+	}
+
+	if expires < 1 {
+		fieldErrors["expires"] = "Expires must be at least 1 day"
+	}
+
+	if len(fieldErrors) > 0 {
+		fmt.Fprint(w, fieldErrors)
 		return
 	}
 
