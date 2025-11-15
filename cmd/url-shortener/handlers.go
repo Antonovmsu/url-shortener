@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"url-shortener/internal/models"
 )
@@ -13,12 +14,22 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) saveURL(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Display form for saving URL"))
+	http.ServeFile(w, r, "./ui/html/pages/create.html")
 }
 
 func (app *application) saveURLPost(w http.ResponseWriter, r *http.Request) {
-	original_url := "https://ya.ru"
-	expires := 1
+	err := r.ParseForm()
+	if err != nil {
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	original_url := r.PostForm.Get("url")
+	expires, err := strconv.Atoi(r.PostForm.Get("expires"))
+	if err != nil {
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
 
 	short_url, err := app.short_urls.Insert(original_url, expires)
 	if err != nil {

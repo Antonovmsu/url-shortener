@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создать короткую ссылку</title>
+</head>
+<body>
+    <h2>Создать короткую ссылку</h2>
+    
+    <form action="/saveURL" method="POST">
+        <div>
+            <label>Введите URL:</label><br>
+            <input type="url" name="url" placeholder="https://example.com" required style="width: 300px; padding: 8px;">
+        </div>
+        
+        <br>
+        
+        <div>
+            <label>Срок действия:</label><br>
+            <input type="radio" name="expires" value="365" checked> 1 год<br>
+            <input type="radio" name="expires" value="7"> 1 неделя<br>
+            <input type="radio" name="expires" value="1"> 1 день
+        </div>
+        
+        <br>
+        
+        <div>
+            <input type="submit" value="Создать ссылку" style="padding: 10px 20px;">
+        </div>
+    </form>
+</body>
+</html>
